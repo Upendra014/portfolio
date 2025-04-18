@@ -94,6 +94,30 @@
             margin-right: 10px;
         }
 
+        form {
+            margin-top: 15px;
+        }
+
+        input, textarea, button {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #77aaff;
+        }
+
         footer {
             background: #333;
             color: #fff;
@@ -142,7 +166,7 @@
         <section id="about">
             <h2>About Me</h2>
             <img src="https://m.media-amazon.com/images/I/61PJlpGlu7L._SY466_.jpg" alt="Profile Image" class="profile-image">
-            <p>Hello! I'm Rohit sharma, a software developer with a passion for creating dynamic and user-friendly web applications. With less than 5 years of experience in the industry, I have honed my skills in web development, focusing on front-end technologies and user experience design.</p>
+            <p>Hello! I'm Rohit Sharma, a software developer with a passion for creating dynamic and user-friendly web applications. With less than 5 years of experience in the industry, I have honed my skills in web development, focusing on front-end technologies and user experience design.</p>
         </section>
         
         <section id="skills">
@@ -155,6 +179,13 @@
                 <li><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js Logo"> Node.js</li>
                 <li><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg" alt="Git Logo"> Git & GitHub</li>
             </ul>
+
+            <h3>Add a Skill</h3>
+            <form id="skill-form">
+                <input type="text" id="skill-name" placeholder="Skill Name" required>
+                <input type="url" id="skill-logo" placeholder="Skill Logo URL (optional)">
+                <button type="submit">Add Skill</button>
+            </form>
         </section>
         
         <section id="projects">
@@ -164,6 +195,13 @@
                 <li><strong>Project Two:</strong> Created a weather forecasting website using HTML, CSS, and JavaScript.</li>
                 <li><strong>Project Three:</strong> Built a personal blog platform with a content management system.</li>
             </ul>
+
+            <h3>Add a Project</h3>
+            <form id="project-form">
+                <input type="text" id="project-title" placeholder="Project Title" required><br>
+                <textarea id="project-description" placeholder="Project Description" rows="3" required></textarea><br>
+                <button type="submit">Add Project</button>
+            </form>
         </section>
         
         <section id="recommendations">
@@ -172,6 +210,7 @@
                 <li>"Rohit is a highly skilled developer with a keen eye for detail. He consistently delivers high-quality work and is a pleasure to work with." - MS Dhoni, Project Manager</li>
                 <li>"Sharma's expertise in front-end development is impressive. He is quick to adapt to new technologies and always strives for excellence." - Virat Kohli, Lead Developer</li>
             </ul>
+
             <h3>Add a Recommendation</h3>
             <form id="recommendation-form">
                 <textarea id="recommendation-text" rows="4" cols="50" required></textarea><br>
@@ -192,6 +231,7 @@
     </div>
 
     <script>
+        // Recommendation
         document.getElementById('recommendation-form').addEventListener('submit', function(event) {
             event.preventDefault();
             const text = document.getElementById('recommendation-text').value;
@@ -211,7 +251,38 @@
         function closePopup() {
             document.getElementById('popup').classList.remove('show');
         }
-    </script>
 
+        // Skill
+        document.getElementById('skill-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('skill-name').value;
+            const logo = document.getElementById('skill-logo').value;
+
+            const li = document.createElement('li');
+            if (logo) {
+                const img = document.createElement('img');
+                img.src = logo;
+                img.alt = name + " logo";
+                img.style.maxWidth = '30px';
+                img.style.marginRight = '10px';
+                li.appendChild(img);
+            }
+            li.appendChild(document.createTextNode(name));
+            document.querySelector('.skills-list').appendChild(li);
+            document.getElementById('skill-form').reset();
+        });
+
+        // Project
+        document.getElementById('project-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('project-title').value;
+            const desc = document.getElementById('project-description').value;
+
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${title}:</strong> ${desc}`;
+            document.querySelector('.projects-list').appendChild(li);
+            document.getElementById('project-form').reset();
+        });
+    </script>
 </body>
 </html>
